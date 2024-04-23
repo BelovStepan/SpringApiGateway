@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  server-eureka:
+    build: ./server-eureka
+    ports:
+      - "8180:8180"
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8181:8181"
+    depends_on:
+      - server-eureka
+      - microservice1
+      - microservice2
+
+  microservice1:
+    build: ./microservice1
+    ports:
+      - "8182:8182"
+    depends_on:
+      - server-eureka
+
+  microservice2:
+    build: ./microservice2
+    ports:
+      - "8183:8183"
+    depends_on:
+      - server-eureka
